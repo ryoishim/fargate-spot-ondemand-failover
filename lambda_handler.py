@@ -37,8 +37,6 @@ def put_message_to_slack():
     response = requests.post(
         slack_webhook
     )
-    #レスポンスオブジェクトのjsonメソッドを使うと、
-    #JSONデータをPythonの辞書オブジェクトを変換して取得できる。
     logger.info(response)
 
 def lambda_handler(event, context):
