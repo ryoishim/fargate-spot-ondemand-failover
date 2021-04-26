@@ -40,8 +40,4 @@ def lambda_handler(event, context):
     else :
         logger.info('expected_bkup_desired_capacity is 0, desired_capacity is filled.')
         
-    return {
-        'statusCode': 200,
-        'body': json.dumps('Hello from Lambda!')
-    }
-
+    return 0
