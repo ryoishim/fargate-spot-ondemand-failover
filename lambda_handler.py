@@ -37,6 +37,8 @@ def put_message_to_slack():
     response = requests.post(
         slack_webhook
     )
+    #レスポンスオブジェクトのjsonメソッドを使うと、
+    #JSONデータをPythonの辞書オブジェクトを変換して取得できる。
     logger.info(response)
 
 def lambda_handler(event, context):
@@ -45,11 +47,11 @@ def lambda_handler(event, context):
     base_service = os.environ['ECS_SERVICE_BASE']
     bkup_service = os.environ['ECS_SERVICE_BACKUP']
 
-    base_service_desired_capacity = get_desired_capacity(cluster, base_service)
+    base_service_shortage_capacity = get_desired_capacity(cluster, base_service)
     bkup_service_desired_capacity = get_desired_capacity(cluster, bkup_service)
 
     # base_service_desired_capacity = 1
-    expected_bkup_desired_capacity = base_service_desired_capacity + bkup_service_desired_capacity
+    expected_bkup_desired_capacity = base_service_shortage_capacity + bkup_service_desired_capacity
     if expected_bkup_desired_capacity > 0 : 
         update_desired_capacity(cluster, bkup_service, expected_bkup_desired_capacity)
     else :
